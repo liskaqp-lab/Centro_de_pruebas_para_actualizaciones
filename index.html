@@ -44,105 +44,116 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Tarjeta 1: Inversión Inicial -->
-            <div class="bg-white rounded-2xl p-8 card-shadow">
-                <div class="flex items-center mb-6">
-                    <span class="text-3xl mr-3">💰</span>
+        <!-- Contenedor de Costos por Producto -->
+        <div id="costosProductosContainer" class="space-y-12">
+            <!-- Título de sección para Producto 1 -->
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-amber-900 mb-2">📦 Costos del Producto 1</h2>
+                <p class="text-amber-600">Inversión inicial y costos mensuales específicos para este producto</p>
+            </div>
+            
+            <!-- Costos para Producto 1 (inicial) -->
+            <div class="costos-producto-item grid grid-cols-1 lg:grid-cols-2 gap-8" data-producto="1">
+                <!-- Tarjeta 1: Inversión Inicial -->
+                <div class="bg-white rounded-2xl p-8 card-shadow">
+                    <div class="flex items-center mb-6">
+                        <span class="text-3xl mr-3">💰</span>
+                        <div>
+                            <h2 class="text-2xl font-bold text-amber-900">Inversión Inicial</h2>
+                            <p class="text-amber-600">Gastos necesarios para arrancar el negocio</p>
+                        </div>
+                    </div>
+                    
+                    <div class="inversion-items space-y-4 mb-6">
+                        <div class="flex gap-3 items-center">
+                            <input type="text" placeholder="Concepto" value="Equipo principal" class="flex-1 p-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300 focus:border-transparent">
+                            <div class="relative w-32">
+                                <span class="absolute left-3 top-3 text-amber-600 font-semibold moneda">Q</span>
+                                <input type="number" placeholder="0" value="15000" class="w-full pl-8 pr-3 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300 focus:border-transparent" onchange="calcularInversion()">
+                            </div>
+                            <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700 p-2">🗑️</button>
+                        </div>
+                        <div class="flex gap-3 items-center">
+                            <input type="text" placeholder="Concepto" value="Mobiliario y decoración" class="flex-1 p-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300 focus:border-transparent">
+                            <div class="relative w-32">
+                                <span class="absolute left-3 top-3 text-amber-600 font-semibold moneda">Q</span>
+                                <input type="number" placeholder="0" value="8000" class="w-full pl-8 pr-3 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300 focus:border-transparent" onchange="calcularInversion()">
+                            </div>
+                            <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700 p-2">🗑️</button>
+                        </div>
+                    </div>
+                    
+                    <button onclick="agregarInversion(this)" class="w-full p-3 bg-amber-100 text-amber-800 rounded-lg hover:bg-amber-200 transition-colors mb-4 font-medium">
+                        + Agregar costo inicial
+                    </button>
+                    
+                    <div class="chocolate-gradient text-white p-4 rounded-lg text-center">
+                        <p class="text-lg font-semibold">Total Inversión Inicial</p>
+                        <p class="total-inversion text-3xl font-bold"><span class="moneda">Q</span> 23,000</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2: Costos Mensuales -->
+                <div class="bg-white rounded-2xl p-8 card-shadow">
+                    <div class="flex items-center mb-6">
+                        <span class="text-3xl mr-3">📊</span>
+                        <div>
+                            <h2 class="text-2xl font-bold text-amber-900">Costos Mensuales</h2>
+                            <p class="text-amber-600">Costos fijos y variables del negocio</p>
+                        </div>
+                    </div>
+
+                    <!-- Costos Fijos -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-amber-800 mb-3">Costos Fijos</h3>
+                        <div class="costos-fijos space-y-3 mb-4">
+                            <div class="flex gap-3 items-center">
+                                <input type="text" placeholder="Concepto" value="Alquiler/Renta" class="flex-1 p-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300">
+                                <div class="relative w-24">
+                                    <span class="absolute left-2 top-2 text-amber-600 font-semibold text-sm moneda">Q</span>
+                                    <input type="number" placeholder="0" value="3000" class="w-full pl-6 pr-2 py-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300" onchange="calcularCostos()">
+                                </div>
+                                <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700">🗑️</button>
+                            </div>
+                            <div class="flex gap-3 items-center">
+                                <input type="text" placeholder="Concepto" value="Servicios básicos" class="flex-1 p-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300">
+                                <div class="relative w-24">
+                                    <span class="absolute left-2 top-2 text-amber-600 font-semibold text-sm moneda">Q</span>
+                                    <input type="number" placeholder="0" value="800" class="w-full pl-6 pr-2 py-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300" onchange="calcularCostos()">
+                                </div>
+                                <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700">🗑️</button>
+                            </div>
+                        </div>
+                        <button onclick="agregarCostoFijo(this)" class="w-full p-2 bg-blue-100 text-blue-800 rounded-lg hover:bg-blue-200 transition-colors text-sm">+ Agregar costo fijo</button>
+                        <div class="mt-3 p-3 bg-blue-50 rounded-lg">
+                            <p class="font-semibold text-blue-800">Total Fijos: <span class="total-fijos"><span class="moneda">Q</span> 3,800</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Costos Variables -->
                     <div>
-                        <h2 class="text-2xl font-bold text-amber-900">Inversión Inicial</h2>
-                        <p class="text-amber-600">Gastos necesarios para arrancar el negocio</p>
-                    </div>
-                </div>
-                
-                <div id="inversionItems" class="space-y-4 mb-6">
-                    <div class="flex gap-3 items-center">
-                        <input type="text" placeholder="Concepto" value="Equipo principal" class="flex-1 p-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300 focus:border-transparent">
-                        <div class="relative w-32">
-                            <span class="absolute left-3 top-3 text-amber-600 font-semibold moneda">Q</span>
-                            <input type="number" placeholder="0" value="15000" class="w-full pl-8 pr-3 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300 focus:border-transparent" onchange="calcularInversion()">
+                        <h3 class="text-lg font-semibold text-amber-800 mb-3">Costos Variables</h3>
+                        <div class="costos-variables space-y-3 mb-4">
+                            <div class="flex gap-3 items-center">
+                                <input type="text" placeholder="Concepto" value="Materiales por unidad" class="flex-1 p-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300">
+                                <div class="relative w-24">
+                                    <span class="absolute left-2 top-2 text-amber-600 font-semibold text-sm moneda">Q</span>
+                                    <input type="number" placeholder="0" value="200" class="w-full pl-6 pr-2 py-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300" onchange="calcularCostos()">
+                                </div>
+                                <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700">🗑️</button>
+                            </div>
                         </div>
-                        <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700 p-2">🗑️</button>
-                    </div>
-                    <div class="flex gap-3 items-center">
-                        <input type="text" placeholder="Concepto" value="Mobiliario y decoración" class="flex-1 p-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300 focus:border-transparent">
-                        <div class="relative w-32">
-                            <span class="absolute left-3 top-3 text-amber-600 font-semibold moneda">Q</span>
-                            <input type="number" placeholder="0" value="8000" class="w-full pl-8 pr-3 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300 focus:border-transparent" onchange="calcularInversion()">
+                        <button onclick="agregarCostoVariable(this)" class="w-full p-2 bg-purple-100 text-purple-800 rounded-lg hover:bg-purple-200 transition-colors text-sm">+ Agregar costo variable</button>
+                        <div class="mt-3 p-3 bg-purple-50 rounded-lg">
+                            <p class="font-semibold text-purple-800">Total Variables: <span class="total-variables"><span class="moneda">Q</span> 200</span></p>
                         </div>
-                        <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700 p-2">🗑️</button>
                     </div>
-                </div>
-                
-                <button onclick="agregarInversion()" class="w-full p-3 bg-amber-100 text-amber-800 rounded-lg hover:bg-amber-200 transition-colors mb-4 font-medium">
-                    + Agregar costo inicial
-                </button>
-                
-                <div class="chocolate-gradient text-white p-4 rounded-lg text-center">
-                    <p class="text-lg font-semibold">Total Inversión Inicial</p>
-                    <p id="totalInversion" class="text-3xl font-bold"><span class="moneda">Q</span> 23,000</p>
                 </div>
             </div>
+        </div>
 
-            <!-- Tarjeta 2: Costos Mensuales -->
-            <div class="bg-white rounded-2xl p-8 card-shadow">
-                <div class="flex items-center mb-6">
-                    <span class="text-3xl mr-3">📊</span>
-                    <div>
-                        <h2 class="text-2xl font-bold text-amber-900">Costos Mensuales</h2>
-                        <p class="text-amber-600">Costos fijos y variables del negocio</p>
-                    </div>
-                </div>
-
-                <!-- Costos Fijos -->
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-amber-800 mb-3">Costos Fijos</h3>
-                    <div id="costosFijos" class="space-y-3 mb-4">
-                        <div class="flex gap-3 items-center">
-                            <input type="text" placeholder="Concepto" value="Alquiler/Renta" class="flex-1 p-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300">
-                            <div class="relative w-24">
-                                <span class="absolute left-2 top-2 text-amber-600 font-semibold text-sm moneda">Q</span>
-                                <input type="number" placeholder="0" value="3000" class="w-full pl-6 pr-2 py-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300" onchange="calcularCostos()">
-                            </div>
-                            <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700">🗑️</button>
-                        </div>
-                        <div class="flex gap-3 items-center">
-                            <input type="text" placeholder="Concepto" value="Servicios básicos" class="flex-1 p-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300">
-                            <div class="relative w-24">
-                                <span class="absolute left-2 top-2 text-amber-600 font-semibold text-sm moneda">Q</span>
-                                <input type="number" placeholder="0" value="800" class="w-full pl-6 pr-2 py-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300" onchange="calcularCostos()">
-                            </div>
-                            <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700">🗑️</button>
-                        </div>
-                    </div>
-                    <button onclick="agregarCostoFijo()" class="w-full p-2 bg-blue-100 text-blue-800 rounded-lg hover:bg-blue-200 transition-colors text-sm">+ Agregar costo fijo</button>
-                    <div class="mt-3 p-3 bg-blue-50 rounded-lg">
-                        <p class="font-semibold text-blue-800">Total Fijos: <span id="totalFijos"><span class="moneda">Q</span> 3,800</span></p>
-                    </div>
-                </div>
-
-                <!-- Costos Variables -->
-                <div>
-                    <h3 class="text-lg font-semibold text-amber-800 mb-3">Costos Variables</h3>
-                    <div id="costosVariables" class="space-y-3 mb-4">
-                        <div class="flex gap-3 items-center">
-                            <input type="text" placeholder="Concepto" value="Materiales por unidad" class="flex-1 p-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300">
-                            <div class="relative w-24">
-                                <span class="absolute left-2 top-2 text-amber-600 font-semibold text-sm moneda">Q</span>
-                                <input type="number" placeholder="0" value="200" class="w-full pl-6 pr-2 py-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300" onchange="calcularCostos()">
-                            </div>
-                            <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700">🗑️</button>
-                        </div>
-                    </div>
-                    <button onclick="agregarCostoVariable()" class="w-full p-2 bg-purple-100 text-purple-800 rounded-lg hover:bg-purple-200 transition-colors text-sm">+ Agregar costo variable</button>
-                    <div class="mt-3 p-3 bg-purple-50 rounded-lg">
-                        <p class="font-semibold text-purple-800">Total Variables: <span id="totalVariables"><span class="moneda">Q</span> 200</span></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tarjeta 3: Calculadora de Productos -->
-            <div class="bg-white rounded-2xl p-8 card-shadow lg:col-span-2">
+        <!-- Tarjeta 3: Calculadora de Productos -->
+        <div class="mt-16 bg-white rounded-2xl p-8 card-shadow lg:col-span-2">
                 <div class="flex items-center mb-6">
                     <span class="text-3xl mr-3">🍫</span>
                     <div>
@@ -275,8 +286,8 @@
                 </div>
             </div>
 
-            <!-- Tarjeta 4: Punto de Equilibrio -->
-            <div class="bg-white rounded-2xl p-8 card-shadow lg:col-span-2">
+        <!-- Tarjeta 4: Punto de Equilibrio -->
+        <div class="mt-16 bg-white rounded-2xl p-8 card-shadow lg:col-span-2">
                 <div class="flex items-center mb-6">
                     <span class="text-3xl mr-3">⚖️</span>
                     <div>
@@ -356,8 +367,8 @@
                 </div>
             </div>
 
-            <!-- Tarjeta 5: Cotización -->
-            <div class="bg-white rounded-2xl p-8 card-shadow lg:col-span-2">
+        <!-- Tarjeta 5: Cotización -->
+        <div class="mt-16 bg-white rounded-2xl p-8 card-shadow lg:col-span-2">
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center">
                         <span class="text-3xl mr-3">📋</span>
@@ -705,8 +716,9 @@
             document.getElementById('totalInversion').innerHTML = `<span class="moneda">${monedaActual}</span> ${total.toLocaleString()}`;
         }
 
-        function agregarInversion() {
-            const container = document.getElementById('inversionItems');
+        function agregarInversion(button) {
+            const seccionCostos = button.closest('.costos-producto-item');
+            const container = seccionCostos.querySelector('.inversion-items');
             const div = document.createElement('div');
             div.className = 'flex gap-3 items-center';
             div.innerHTML = `
@@ -745,8 +757,9 @@
             actualizarResumen();
         }
 
-        function agregarCostoFijo() {
-            const container = document.getElementById('costosFijos');
+        function agregarCostoFijo(button) {
+            const seccionCostos = button.closest('.costos-producto-item');
+            const container = seccionCostos.querySelector('.costos-fijos');
             const div = document.createElement('div');
             div.className = 'flex gap-3 items-center';
             div.innerHTML = `
@@ -760,8 +773,9 @@
             container.appendChild(div);
         }
 
-        function agregarCostoVariable() {
-            const container = document.getElementById('costosVariables');
+        function agregarCostoVariable(button) {
+            const seccionCostos = button.closest('.costos-producto-item');
+            const container = seccionCostos.querySelector('.costos-variables');
             const div = document.createElement('div');
             div.className = 'flex gap-3 items-center';
             div.innerHTML = `
@@ -783,6 +797,8 @@
 
         function agregarProducto() {
             contadorProductos++;
+            
+            // Agregar nuevo producto a la sección de productos
             const container = document.getElementById('productosContainer');
             const div = document.createElement('div');
             div.className = 'border border-amber-200 rounded-xl p-6 producto-item';
@@ -837,18 +853,193 @@
                 </div>
             `;
             container.appendChild(div);
+
+            // Agregar nueva sección de costos para este producto
+            agregarSeccionCostosProducto(contadorProductos);
+        }
+
+        function agregarSeccionCostosProducto(numeroProducto) {
+            const costosContainer = document.getElementById('costosProductosContainer');
+            
+            // Crear contenedor completo con título
+            const contenedorCompleto = document.createElement('div');
+            contenedorCompleto.className = 'mt-16';
+            
+            // Crear título de sección
+            const tituloSeccion = document.createElement('div');
+            tituloSeccion.className = 'text-center mb-8';
+            tituloSeccion.innerHTML = `
+                <h2 class="text-3xl font-bold text-amber-900 mb-2">📦 Costos del Producto ${numeroProducto}</h2>
+                <p class="text-amber-600">Inversión inicial y costos mensuales específicos para este producto</p>
+            `;
+            
+            // Crear sección de costos
+            const nuevaSeccion = document.createElement('div');
+            nuevaSeccion.className = 'costos-producto-item grid grid-cols-1 lg:grid-cols-2 gap-8';
+            nuevaSeccion.setAttribute('data-producto', numeroProducto);
+            
+            nuevaSeccion.innerHTML = `
+                <!-- Tarjeta 1: Inversión Inicial -->
+                <div class="bg-white rounded-2xl p-8 card-shadow">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center">
+                            <span class="text-3xl mr-3">💰</span>
+                            <div>
+                                <h2 class="text-2xl font-bold text-amber-900">Inversión Inicial</h2>
+                                <p class="text-amber-600">Gastos necesarios para arrancar el negocio</p>
+                            </div>
+                        </div>
+                        <button onclick="eliminarSeccionCostosProducto(this)" class="text-red-500 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition-colors">
+                            🗑️
+                        </button>
+                    </div>
+                    
+                    <div class="inversion-items space-y-4 mb-6">
+                        <div class="flex gap-3 items-center">
+                            <input type="text" placeholder="Concepto" value="Equipo específico" class="flex-1 p-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300 focus:border-transparent">
+                            <div class="relative w-32">
+                                <span class="absolute left-3 top-3 text-amber-600 font-semibold moneda">${monedaActual}</span>
+                                <input type="number" placeholder="0" value="0" class="w-full pl-8 pr-3 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300 focus:border-transparent" onchange="calcularInversion()">
+                            </div>
+                            <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700 p-2">🗑️</button>
+                        </div>
+                    </div>
+                    
+                    <button onclick="agregarInversion(this)" class="w-full p-3 bg-amber-100 text-amber-800 rounded-lg hover:bg-amber-200 transition-colors mb-4 font-medium">
+                        + Agregar costo inicial
+                    </button>
+                    
+                    <div class="chocolate-gradient text-white p-4 rounded-lg text-center">
+                        <p class="text-lg font-semibold">Total Inversión Inicial</p>
+                        <p class="total-inversion text-3xl font-bold"><span class="moneda">${monedaActual}</span> 0</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2: Costos Mensuales -->
+                <div class="bg-white rounded-2xl p-8 card-shadow">
+                    <div class="flex items-center mb-6">
+                        <span class="text-3xl mr-3">📊</span>
+                        <div>
+                            <h2 class="text-2xl font-bold text-amber-900">Costos Mensuales</h2>
+                            <p class="text-amber-600">Costos fijos y variables del negocio</p>
+                        </div>
+                    </div>
+
+                    <!-- Costos Fijos -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-amber-800 mb-3">Costos Fijos</h3>
+                        <div class="costos-fijos space-y-3 mb-4">
+                            <div class="flex gap-3 items-center">
+                                <input type="text" placeholder="Concepto" value="Costo específico" class="flex-1 p-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300">
+                                <div class="relative w-24">
+                                    <span class="absolute left-2 top-2 text-amber-600 font-semibold text-sm moneda">${monedaActual}</span>
+                                    <input type="number" placeholder="0" value="0" class="w-full pl-6 pr-2 py-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300" onchange="calcularCostos()">
+                                </div>
+                                <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700">🗑️</button>
+                            </div>
+                        </div>
+                        <button onclick="agregarCostoFijo(this)" class="w-full p-2 bg-blue-100 text-blue-800 rounded-lg hover:bg-blue-200 transition-colors text-sm">+ Agregar costo fijo</button>
+                        <div class="mt-3 p-3 bg-blue-50 rounded-lg">
+                            <p class="font-semibold text-blue-800">Total Fijos: <span class="total-fijos"><span class="moneda">${monedaActual}</span> 0</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Costos Variables -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-amber-800 mb-3">Costos Variables</h3>
+                        <div class="costos-variables space-y-3 mb-4">
+                            <div class="flex gap-3 items-center">
+                                <input type="text" placeholder="Concepto" value="Material específico" class="flex-1 p-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300">
+                                <div class="relative w-24">
+                                    <span class="absolute left-2 top-2 text-amber-600 font-semibold text-sm moneda">${monedaActual}</span>
+                                    <input type="number" placeholder="0" value="0" class="w-full pl-6 pr-2 py-2 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-300" onchange="calcularCostos()">
+                                </div>
+                                <button onclick="eliminarItem(this)" class="text-red-500 hover:text-red-700">🗑️</button>
+                            </div>
+                        </div>
+                        <button onclick="agregarCostoVariable(this)" class="w-full p-2 bg-purple-100 text-purple-800 rounded-lg hover:bg-purple-200 transition-colors text-sm">+ Agregar costo variable</button>
+                        <div class="mt-3 p-3 bg-purple-50 rounded-lg">
+                            <p class="font-semibold text-purple-800">Total Variables: <span class="total-variables"><span class="moneda">${monedaActual}</span> 0</span></p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Ensamblar todo
+            contenedorCompleto.appendChild(tituloSeccion);
+            contenedorCompleto.appendChild(nuevaSeccion);
+            costosContainer.appendChild(contenedorCompleto);
+        }
+
+        function eliminarSeccionCostosProducto(button) {
+            const seccion = button.closest('.costos-producto-item');
+            seccion.remove();
+            calcularCostos();
         }
 
         function eliminarProducto(button) {
-            button.closest('.producto-item').remove();
+            const productoItem = button.closest('.producto-item');
+            const numeroProducto = Array.from(document.querySelectorAll('.producto-item')).indexOf(productoItem) + 1;
+            
+            // Eliminar el producto
+            productoItem.remove();
+            
+            // Eliminar la sección de costos correspondiente
+            const seccionCostos = document.querySelector(`.costos-producto-item[data-producto="${numeroProducto}"]`);
+            if (seccionCostos) {
+                seccionCostos.remove();
+            }
+            
             calcularProductos();
+        }
+
+        function calcularInversion() {
+            // Calcular inversión para cada producto por separado
+            const seccionesCostos = document.querySelectorAll('.costos-producto-item');
+            
+            seccionesCostos.forEach(seccion => {
+                const items = seccion.querySelectorAll('.inversion-items input[type="number"]');
+                let total = 0;
+                items.forEach(item => {
+                    total += parseFloat(item.value) || 0;
+                });
+                const totalElement = seccion.querySelector('.total-inversion');
+                totalElement.innerHTML = `<span class="moneda">${monedaActual}</span> ${total.toLocaleString()}`;
+            });
+            
+            calcularProductos();
+        }
+
+        function calcularCostos() {
+            // Calcular costos para cada producto por separado
+            const seccionesCostos = document.querySelectorAll('.costos-producto-item');
+            
+            seccionesCostos.forEach(seccion => {
+                // Calcular costos fijos
+                const fijos = seccion.querySelectorAll('.costos-fijos input[type="number"]');
+                let totalFijos = 0;
+                fijos.forEach(item => {
+                    totalFijos += parseFloat(item.value) || 0;
+                });
+                seccion.querySelector('.total-fijos').innerHTML = `<span class="moneda">${monedaActual}</span> ${totalFijos.toLocaleString()}`;
+
+                // Calcular costos variables
+                const variables = seccion.querySelectorAll('.costos-variables input[type="number"]');
+                let totalVariables = 0;
+                variables.forEach(item => {
+                    totalVariables += parseFloat(item.value) || 0;
+                });
+                seccion.querySelector('.total-variables').innerHTML = `<span class="moneda">${monedaActual}</span> ${totalVariables.toLocaleString()}`;
+            });
+
+            calcularProductos();
+            calcularEquilibrio();
+            actualizarResumen();
         }
 
         function calcularProductos() {
             const productos = document.querySelectorAll('.producto-item');
-            const totalFijos = parseFloat(document.getElementById('totalFijos').textContent.replace(/[^\d.-]/g, '')) || 0;
-            const totalVariables = parseFloat(document.getElementById('totalVariables').textContent.replace(/[^\d.-]/g, '')) || 0;
-            const inversionInicial = parseFloat(document.getElementById('totalInversion').textContent.replace(/[^\d.-]/g, '')) || 0;
+            const seccionesCostos = document.querySelectorAll('.costos-producto-item');
             
             const impuestosPersonalizadosRate = calcularTotalImpuestosPersonalizados();
 
@@ -863,15 +1054,41 @@
                 totalUnidadesMensuales += unidadesMensuales;
             });
 
-            productos.forEach(producto => {
+            productos.forEach((producto, index) => {
                 const precioVenta = parseFloat(producto.querySelector('.precio-venta').value) || 0;
                 const unidadesMensuales = parseFloat(producto.querySelector('.unidades-mensuales').value) || 0;
 
-                // Calcular costo de producción automáticamente
-                // Amortización de inversión inicial (dividida entre 12 meses y luego por unidades)
+                // Obtener costos específicos de este producto
+                let totalFijos = 0;
+                let totalVariables = 0;
+                let inversionInicial = 0;
+
+                // Buscar la sección de costos correspondiente a este producto
+                const seccionCostos = seccionesCostos[index];
+                if (seccionCostos) {
+                    // Calcular inversión inicial de este producto
+                    const inversionItems = seccionCostos.querySelectorAll('.inversion-items input[type="number"]');
+                    inversionItems.forEach(item => {
+                        inversionInicial += parseFloat(item.value) || 0;
+                    });
+
+                    // Calcular costos fijos de este producto
+                    const fijos = seccionCostos.querySelectorAll('.costos-fijos input[type="number"]');
+                    fijos.forEach(item => {
+                        totalFijos += parseFloat(item.value) || 0;
+                    });
+
+                    // Calcular costos variables de este producto
+                    const variables = seccionCostos.querySelectorAll('.costos-variables input[type="number"]');
+                    variables.forEach(item => {
+                        totalVariables += parseFloat(item.value) || 0;
+                    });
+                }
+
+                // Calcular costo de producción automáticamente para este producto específico
                 const amortizacionMensual = inversionInicial / 12;
-                const costoFijosPorUnidad = totalUnidadesMensuales > 0 ? (totalFijos + amortizacionMensual) / totalUnidadesMensuales : 0;
-                const costoVariablesPorUnidad = totalUnidadesMensuales > 0 ? totalVariables / totalUnidadesMensuales : 0;
+                const costoFijosPorUnidad = unidadesMensuales > 0 ? (totalFijos + amortizacionMensual) / unidadesMensuales : 0;
+                const costoVariablesPorUnidad = totalVariables;
                 
                 const costoProduccionCalculado = costoFijosPorUnidad + costoVariablesPorUnidad;
                 
@@ -1119,5 +1336,5 @@
         actualizarTotalImpuestosPersonalizados();
         actualizarCotizacion();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9804debdf290cc74',t:'MTc1ODA3Mjk1OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9804f4ecc7742073',t:'MTc1ODA3Mzg2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
